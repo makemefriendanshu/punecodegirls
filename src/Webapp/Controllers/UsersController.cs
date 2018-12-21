@@ -17,6 +17,46 @@ namespace Webapp.Controllers
         {
             _context = context;
         }
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> LoginSubmit([Bind("UserName,Password")] LoginModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("Error", "Login Failed - Please try again with valid credentials.");
+                return RedirectToAction("Login", "Users");
+            }
+
+            var user = await _context.User
+                                     .FirstOrDefaultAsync(m => m.Username == model.UserName);
+            if(user == null)
+            {
+                ModelState.AddModelError("Error", "Username not found - Please try again with valid credentials.");
+                return View("Login");
+            }
+            if(user.Password == model.Password)
+            {
+                return RedirectToAction("Index", "Users");
+            }
+            else
+            {
+                ModelState.AddModelError("Error", "Incorrect Password - Please try again with valid credentials.");
+                return View("Login");
+            }
+        }
+        public IActionResult Register()
+        {
+            return View();
+        }
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
 
         // GET: Users
         public async Task<IActionResult> Index()
