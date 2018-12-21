@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Webapp.Models;
 
 namespace Webapp
 {
@@ -26,7 +27,7 @@ namespace Webapp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DB.Models.AppDBContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
-
+            services.AddDbContext<dh4qu0dvk39bfContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DBConnection")));
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
