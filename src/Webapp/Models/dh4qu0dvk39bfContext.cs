@@ -19,8 +19,7 @@ namespace Webapp.Models
         
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserType> UserType { get; set; }
-
-        
+ 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
